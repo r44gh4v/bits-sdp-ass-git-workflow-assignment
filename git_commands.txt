@@ -1,0 +1,96 @@
+Git commands used in this assignment
+====================================
+
+Step 1 - Local repository setup
+-------------------------------
+git init -b main
+    Creates a new empty git repository in the current folder, with "main" as the default branch.
+
+git status
+    Shows which files are changed, staged or untracked and which branch we are on.
+
+Step 2 - Git workflow
+---------------------
+git add index.html about.html
+    Adds (stages) the two files so they will be part of the next commit.
+
+git commit -m "Initial commit: add index.html and about.html"
+    Saves the staged files as a new commit (snapshot) with a message. This records the initial state.
+
+git diff
+    Shows the line by line changes in the working files that are not staged yet.
+
+git commit -m "Update index.html: add intro paragraph"
+    Second commit after modifying index.html.
+
+git branch feature
+    Creates a new branch called feature starting from the current commit.
+
+git checkout feature
+    Switches the working directory to the feature branch.
+
+git branch
+    Lists all local branches, the current one is marked with *.
+
+git commit -m "Add skills section to about page (feature branch)"
+    Commits the change to about.html on the feature branch only.
+
+git checkout main
+    Switches back to the main branch (the feature change is not visible here yet).
+
+git merge --no-ff feature -m "Merge branch feature into main"
+    Merges feature into main. --no-ff forces a merge commit so the branch is visible in history.
+
+git log --oneline --graph --all --decorate
+    Shows the commit history of all branches as a graph, one line per commit, with branch names.
+
+Step 3 - .gitignore
+-------------------
+git status --ignored
+    Shows the files that are being ignored because of .gitignore (debug.log and temp/).
+
+git add .gitignore
+git commit -m "Add .gitignore to ignore .log files and temp folder"
+    Commits the .gitignore file, which ignores *.log files and the temp/ folder.
+
+Step 4 - Undo operation
+-----------------------
+git commit -m "Add footer placeholder to index.html"
+    The extra commit that will be undone.
+
+git log --oneline -3
+    Shows the last 3 commits to check the commit is there.
+
+git revert --no-edit HEAD
+    Undoes the last commit by creating a new commit that reverses its changes. History is kept
+    (safe for commits that are pushed / shared), unlike git reset which deletes the commit.
+
+git show --stat HEAD
+    Shows details of the latest commit (the revert) and which file it changed.
+
+(Other option: git reset --soft HEAD~1 removes the last commit but keeps the changes staged,
+ and git reset --hard HEAD~1 removes the commit and the changes. Not used here because the
+ history on GitHub has to show the undo.)
+
+Step 5 - GitHub integration
+---------------------------
+(created an empty public repository "bits-sdp-ass-git-workflow-assignment" on GitHub, no README)
+
+git remote add origin https://github.com/r44gh4v/bits-sdp-ass-git-workflow-assignment.git
+    Connects the local repository to the GitHub repository with the name "origin".
+
+git remote -v
+    Shows the remote URLs to verify the connection.
+
+git push -u origin main
+    Uploads the main branch and all its commits to GitHub. -u sets origin/main as upstream
+    so later just "git push" works.
+
+git push origin feature
+    Uploads the feature branch to GitHub as well so the branch is visible there.
+
+Step 6
+------
+git add git_commands.txt
+git commit -m "Add git_commands.txt with all commands used"
+    Adds this documentation file to the repository.
